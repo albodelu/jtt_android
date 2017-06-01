@@ -40,16 +40,14 @@ script:
   - ./gradlew jacocoTestReport
   - ./gradlew assembleDebug assembleAndroidTest
   - android-wait-for-emulator
-  - adb shell settings put global window_animation_scale 0 &
-  - adb shell settings put global transition_animation_scale 0 &
-  - adb shell settings put global animator_duration_scale 0 &
-  - sleep 30
-  - adb shell input keyevent 82 &
+  - adb shell settings put global window_animation_scale 0
+  - adb shell settings put global transition_animation_scale 0
+  - adb shell settings put global animator_duration_scale 0
+  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+  - adb shell input keyevent 82
   - ./gradlew connectedCheck
 
 after_success: bash <(curl -s https://codecov.io/bash)
 
 after_script:
-  # Show tests and lint results
   - cat ${TRAVIS_BUILD_DIR}/build/outputs/androidTest-results/connected/*
-  - cat ${TRAVIS_BUILD_DIR}/build/reports/lint-results.xml
