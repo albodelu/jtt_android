@@ -48,3 +48,8 @@ script:
   - ./gradlew connectedCheck
 
 after_success: bash <(curl -s https://codecov.io/bash)
+
+after_script:
+  # Show tests and lint results
+  - cat ${TRAVIS_BUILD_DIR}/build/outputs/androidTest-results/connected/*
+  - cat ${TRAVIS_BUILD_DIR}/build/reports/lint-results.xml
