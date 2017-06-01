@@ -30,9 +30,9 @@ before_script:
   - set -e
   - gradle wrapper -b wrapper.gradle
   - cp travis.gradle.properties gradle.properties
-  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI --device 'Nexus 4' --sdcard 128M
   - export QEMU_AUDIO_DRV=none
-  - emulator -avd test -no-window &
+  - emulator -avd test -no-window -skin 768x1280 &
 
 script:
   - set -e
